@@ -36,70 +36,11 @@ import Layout from '../layouts/Layout.astro';
 
 		<section style="background-color: #e6f7ff; padding: 2rem; border-radius: 10px;">
 			<h2 style="font-size: 2rem; margin-bottom: 1.5rem;">Start Explaining!</h2>
-			<div style="background-color: #fff; padding: 1.5rem; border-radius: 8px; border: 1px solid #ccc;">
+			<div id="chatInputArea" style="background-color: #fff; padding: 1.5rem; border-radius: 8px; border: 1px solid #ccc;">
 				<p style="margin-bottom: 1rem;">What do you want to teach, or what do you want to learn about?</p>
 				<!-- Placeholder for chat input area -->
 				<textarea id="topicInput" style="width: 90%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;" placeholder="Type your topic here..."></textarea>
 				<button id="startChatButton" style="background-color: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 1rem; margin-top: 1rem;">Start Chat</button>
-
-				<script is:inline>
-					const topicInput = document.getElementById('topicInput');
-					const startChatButton = document.getElementById('startChatButton');
-					const chatInputArea = document.getElementById('chatInputArea');
-					const aiOutputArea = document.getElementById('aiOutputArea');
-					const aiOutputText = document.getElementById('aiOutputText');
-
-					startChatButton.addEventListener('click', async () => {
-						const topic = topicInput.value;
-						console.log('User wants to teach about:', topic);
-
-						if (topic.trim() === '') {
-							alert('Please enter a topic.');
-							return;
-						}
-
-						// Hide input area, show loading or disable input
-						chatInputArea.style.display = 'none';
-						aiOutputArea.style.display = 'block'; // Show AI output area
-						aiOutputText.textContent = 'Generating explanation...';
-
-						try {
-							const response = await fetch('https://n8n.srv874889.hstgr.cloud/webhook-test/acme', {
-								method: 'POST',
-								headers: {
-									'Content-Type': 'application/json',
-								},
-								body: JSON.stringify({ topic: topic }),
-							});
-
-							if (response.ok) {
-								const data = await response.json();
-								// Assuming n8n sends back { "ai_output": "Your AI generated text" }
-								aiOutputText.textContent = data.ai_output || 'No explanation generated.';
-							} else {
-								alert('Failed to submit topic to n8n. Status: ' + response.status);
-								console.error('n8n submission error:', await response.text());
-								aiOutputText.textContent = 'Error generating explanation.';
-							}
-						} catch (error) {
-							alert('An error occurred while submitting the topic.');
-							console.error('Fetch error:', error);
-							aiOutputText.textContent = 'Error generating explanation.';
-						}
-					});
-
-					// Add event listeners for Approve/Edit buttons (to be implemented later)
-					// For now, just log to console
-					document.getElementById('approveButton').addEventListener('click', () => {
-						alert('Content Approved! (Action to be implemented)');
-						// Here you would send a signal back to n8n to proceed with PDF generation
-					});
-
-					document.getElementById('editButton').addEventListener('click', () => {
-						alert('Edit Content! (Action to be implemented)');
-						// Here you would make the aiOutputText editable or redirect to an edit page
-					});
-				</script>
 			</div>
 		</section>
 
@@ -112,7 +53,65 @@ import Layout from '../layouts/Layout.astro';
 				<button id="approveButton" style="background-color: #28a745; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 1rem; margin-right: 1rem;">Approve</button>
 				<button id="editButton" style="background-color: #ffc107; color: black; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 1rem;">Edit</button>
 			</div>
-			</div>
 		</section>
+
+		<script is:inline>
+			const topicInput = document.getElementById('topicInput');
+			const startChatButton = document.getElementById('startChatButton');
+			const chatInputArea = document.getElementById('chatInputArea');
+			const aiOutputArea = document.getElementById('aiOutputArea');
+			const aiOutputText = document.getElementById('aiOutputText');
+
+			startChatButton.addEventListener('click', async () => {
+				const topic = topicInput.value;
+				console.log('User wants to teach about:', topic);
+
+				if (topic.trim() === '') {
+					alert('Please enter a topic.');
+					return;
+				}
+
+				// Hide input area, show loading or disable input
+				chatInputArea.style.display = 'none';
+				aiOutputArea.style.display = 'block'; // Show AI output area
+				aiOutputText.textContent = 'Generating explanation...';
+
+				try {
+					const response = await fetch('https://n8n.srv874889.hstgr.cloud/webhook-test/acme', {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({ topic: topic }),
+					});
+
+					if (response.ok) {
+						const data = await response.json();
+						// Assuming n8n sends back { "ai_output": "Your AI generated text" }
+						aiOutputText.textContent = data.ai_output || 'No explanation generated.';
+					} else {
+						alert('Failed to submit topic to n8n. Status: ' + response.status);
+						console.error('n8n submission error:', await response.text());
+						aiOutputText.textContent = 'Error generating explanation.';
+					}
+				} catch (error) {
+					alert('An error occurred while submitting the topic.');
+					console.error('Fetch error:', error);
+					aiOutputText.textContent = 'Error generating explanation.';
+				}
+			});
+
+			// Add event listeners for Approve/Edit buttons (to be implemented later)
+			// For now, just log to console
+			document.getElementById('approveButton').addEventListener('click', () => {
+				alert('Content Approved! (Action to be implemented)');
+				// Here you would send a signal back to n8n to proceed with PDF generation
+			});
+
+			document.getElementById('editButton').addEventListener('click', () => {
+				alert('Edit Content! (Action to be implemented)');
+				// Here you would make the aiOutputText editable or redirect to an edit page
+			});
+		</script>
 	</main>
 </Layout>
