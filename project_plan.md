@@ -14,7 +14,8 @@
         *   [x] Set up n8n instance (local for development, then deployable).
         *   [ ] Create a basic n8n workflow to:
             *   [x] Receive topic input from Astro frontend.
-            *   [ ] Trigger a placeholder AI content generation (e.g., simple text response).
+            *   [x] Trigger a placeholder AI content generation (e.g., simple text response).
+            *   [ ] Present AI output to expert for approval/editing.
             *   [ ] Generate a basic, text-only PDF (no diagrams, no watermarking initially).
             *   [ ] Send an email with a download link for the PDF.
             *   [ ] Capture email addresses for list growth (store temporarily or in a simple database).
