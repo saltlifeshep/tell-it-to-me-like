@@ -13,7 +13,7 @@
     3.  [ ] **Backend/Workflow (n8n):**
         *   [x] Set up n8n instance (local for development, then deployable).
         *   [ ] Create a basic n8n workflow to:
-            *   [ ] Receive topic input from Astro frontend.
+            *   [x] Receive topic input from Astro frontend.
             *   [ ] Trigger a placeholder AI content generation (e.g., simple text response).
             *   [ ] Generate a basic, text-only PDF (no diagrams, no watermarking initially).
             *   [ ] Send an email with a download link for the PDF.

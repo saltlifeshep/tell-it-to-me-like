@@ -46,11 +46,40 @@ import Layout from '../layouts/Layout.astro';
 					const topicInput = document.getElementById('topicInput');
 					const startChatButton = document.getElementById('startChatButton');
 
-					startChatButton.addEventListener('click', () => {
+					// IMPORTANT: In a real application, you would NOT hardcode API keys in frontend code.
+					// This is for demonstration purposes only. Use environment variables or a backend proxy.
+					const N8N_WEBHOOK_API_KEY = 'YOUR_SECRET_API_KEY_HERE'; // REPLACE THIS WITH YOUR ACTUAL SECRET KEY FROM N8N
+
+					startChatButton.addEventListener('click', async () => {
 						const topic = topicInput.value;
 						console.log('User wants to teach about:', topic);
-						// In a real application, you would send this topic to your backend/n8n
-						alert('Topic submitted! Check the console for the value.');
+
+						if (topic.trim() === '') {
+							alert('Please enter a topic.');
+							return;
+						}
+
+						try {
+							const response = await fetch('https://n8n.srv874889.hstgr.cloud/webhook-test/acme', {
+								method: 'POST',
+								headers: {
+									'Content-Type': 'application/json',
+									'X-API-Key': N8N_WEBHOOK_API_KEY, // Add your custom header here
+								},
+								body: JSON.stringify({ topic: topic }),
+							});
+
+							if (response.ok) {
+								alert('Topic submitted successfully to n8n!');
+								topicInput.value = ''; // Clear the input field
+							} else {
+								alert('Failed to submit topic to n8n. Status: ' + response.status);
+								console.error('n8n submission error:', await response.text());
+							}
+						} catch (error) {
+							alert('An error occurred while submitting the topic.');
+							console.error('Fetch error:', error);
+						}
 					});
 				</script>
 			</div>
