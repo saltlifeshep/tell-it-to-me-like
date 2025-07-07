@@ -1,0 +1,59 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Tell-It-To-Me-Like.com">
+	<main style="max-width: 800px; margin: 0 auto; padding: 2rem; text-align: center;">
+		<h1 style="font-size: 3rem; margin-bottom: 1rem;">Tell-It-To-Me-Like.com</h1>
+		<p style="font-size: 1.2rem; line-height: 1.6; margin-bottom: 2rem;">
+			Ever wish someone could just explain it to you simply? Or maybe you're the expert, and you're tired of repeating yourself?
+			This is the place where people who know things come to learn how to teach others about it, and where people come to learn from content that's broken down into easily digestible pieces.
+		</p>
+
+		<section style="margin-bottom: 3rem;">
+			<h2 style="font-size: 2rem; margin-bottom: 1rem;">How it Works:</h2>
+			<p style="font-size: 1.1rem; line-height: 1.5;">
+				You tell our AI what you want to teach, and it will ask a few clarifying questions to make sure it understands.
+				Then, it will generate useful teaching aids and explainers, starting with a free PDF.
+			</p>
+		</section>
+
+		<section style="margin-bottom: 3rem;">
+			<h2 style="font-size: 2rem; margin-bottom: 1rem;">Examples:</h2>
+			<div style="display: flex; justify-content: center; gap: 2rem;">
+				<div style="background-color: #f0f0f0; padding: 1.5rem; border-radius: 8px; width: 45%;">
+					<h3>"How to Change a Tire"</h3>
+					<p>A step-by-step guide for someone who's never done it before.</p>
+					<!-- Placeholder for example output image/link -->
+				</div>
+				<div style="background-color: #f0f0f0; padding: 1.5rem; border-radius: 8px; width: 45%;">
+					<h3>"Making Grandma's Pancakes"</h3>
+					<p>A simple recipe broken down for a young cook.</p>
+					<!-- Placeholder for example output image/link -->
+				</div>
+			</div>
+		</section>
+
+		<section style="background-color: #e6f7ff; padding: 2rem; border-radius: 10px;">
+			<h2 style="font-size: 2rem; margin-bottom: 1.5rem;">Start Explaining!</h2>
+			<div style="background-color: #fff; padding: 1.5rem; border-radius: 8px; border: 1px solid #ccc;">
+				<p style="margin-bottom: 1rem;">What do you want to teach, or what do you want to learn about?</p>
+				<!-- Placeholder for chat input area -->
+				<textarea id="topicInput" style="width: 90%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;" placeholder="Type your topic here..."></textarea>
+				<button id="startChatButton" style="background-color: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 1rem; margin-top: 1rem;">Start Chat</button>
+
+				<script is:inline>
+					const topicInput = document.getElementById('topicInput');
+					const startChatButton = document.getElementById('startChatButton');
+
+					startChatButton.addEventListener('click', () => {
+						const topic = topicInput.value;
+						console.log('User wants to teach about:', topic);
+						// In a real application, you would send this topic to your backend/n8n
+						alert('Topic submitted! Check the console for the value.');
+					});
+				</script>
+			</div>
+		</section>
+	</main>
+</Layout>
